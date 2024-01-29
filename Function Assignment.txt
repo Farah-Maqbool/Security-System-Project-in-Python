@@ -1,0 +1,535 @@
+# challange no 1
+def rectangle_area(length, width):
+    """
+    Calculates the area of a rectangle.
+
+    Parameters:
+    - length (float): Length of the rectangle.
+    - width (float): Width of the rectangle.
+
+    Returns:
+    float: Area of the rectangle.
+    """
+    area = length * width
+    return area
+    length = 5.0
+width = 3.0
+
+area = rectangle_area(length, width)
+print(f"The area of the rectangle with length {length} and width {width} is: {area}")
+The area of the rectangle with length 5.0 and width 3.0 is: 15.0
+# challange no 2
+def check_even_odd(number):
+    """
+    Checks if a number is even or odd.
+
+    Parameters:
+    - number (int or float): The number to be checked.
+
+    Returns:
+    str: "Even" if the number is even, "Odd" otherwise.
+    """
+    if number % 2 == 0:
+        return "Even"
+    else:
+        return "Odd"
+    num = 7
+
+result = check_even_odd(num)
+print(f"The number {num} is {result}.")
+The number 7 is Odd.
+# 1.Movie ticket price:
+# problem no 1
+def calculate_ticket_price(age, day):
+    """
+    Calculates the movie ticket price based on age and day of the week.
+
+    Parameters:
+    - age (str): Age category - "adult", "child", or "senior".
+    - day (str): Day of the week - "weekday" or "weekend".
+
+    Returns:
+    float: Calculated ticket price.
+    """
+    base_price = 10.0  # Base price for a movie ticket
+
+    # Define age category multipliers
+    if age == "adult":
+        age_multiplier = 1.0
+    elif age == "child":
+        age_multiplier = 0.8  # Children get a 20% discount
+        elif age == "senior":
+        age_multiplier = 0.9  # Seniors get a 10% discount
+    else:
+        raise ValueError("Invalid age category")
+
+    # Define day category multipliers
+    if day == "weekday":
+        day_multiplier = 1.0
+    elif day == "weekend":
+        day_multiplier = 1.2  # Weekend tickets cost 20% more
+    else:
+        raise ValueError("Invalid day category")
+    # Calculate the ticket price
+    ticket_price = base_price * age_multiplier * day_multiplier
+
+    return ticket_price
+age_category = "adult"
+day_of_week = "weekday"
+
+price = calculate_ticket_price(age_category, day_of_week)
+print(f"The ticket price for an {age_category} on a {day_of_week} is: ${price:.2f}")
+# problem no 2
+def calculate_ticket_price(age, day, num_tickets):
+    """
+    Calculates the movie ticket price based on age, day of the week, and number of tickets.
+
+    Parameters:
+    - age (str): Age category - "adult", "child", or "senior".
+    - day (str): Day of the week - "weekday" or "weekend".
+    - num_tickets (int): Number of tickets in the group or family.
+
+    Returns:
+    float: Calculated ticket price.
+    """
+    base_price = 10.0  # Base price for a movie ticket
+
+    # Define age category multipliers
+    if age == "adult":
+        age_multiplier = 1.0
+    elif age == "child":
+        age_multiplier = 0.8  # Children get a 20% discount
+    elif age == "senior":
+        age_multiplier = 0.9  # Seniors get a 10% discount
+    else:
+        raise ValueError("Invalid age category")
+
+    # Define day category multipliers
+    if day == "weekday":
+        day_multiplier = 1.0
+    elif day == "weekend":
+        day_multiplier = 1.2  # Weekend tickets cost 20% more
+    else:
+        raise ValueError("Invalid day category")
+
+    # Apply group or family discount
+     group_discount_threshold = 4  # Number of tickets required for a group discount
+    if num_tickets >= group_discount_threshold:
+        group_discount = 0.85  # 15% discount for groups with 4 or more tickets
+    else:
+        group_discount = 1.0  # No discount for smaller groups
+
+    # Calculate the ticket price
+    ticket_price = base_price * age_multiplier * day_multiplier * group_discount
+
+    return ticket_price
+age_category = "adult"
+day_of_week = "weekday"
+num_tickets = 6
+
+price = calculate_ticket_price(age_category, day_of_week, num_tickets)
+print(f"The total ticket price for {num_tickets} {age_category} on a {day_of_week} is: ${price:.2f}")
+# 2.Resturant Bill Calculator:
+# problem no 1
+def calculate_total_bill(items, quantities, prices):
+    """
+    Calculate the total bill amount based on ordered items, quantities, and prices.
+
+    Parameters:
+    - items (list): List of ordered items.
+    - quantities (list): List of corresponding quantities for each item.
+    - prices (list): List of corresponding prices for each item.
+
+    Returns:
+    - float: Total bill amount.
+    """
+    # Ensure all lists are of the same length
+    if len(items) != len(quantities) or len(items) != len(prices) or len(quantities) != len(prices):
+        raise ValueError("Lists must be of the same length.")
+
+    # Calculate total bill amount
+    total_amount = sum(quantity * price for quantity, price in zip(quantities, prices))
+
+    return total_amount
+
+# Example usage:
+ordered_items = ["Item1", "Item2", "Item3"]
+quantities = [2, 3, 1]
+prices = [10.99, 5.99, 7.5]
+
+total_bill_amount = calculate_total_bill(ordered_items, quantities, prices)
+print(f'Total Bill Amount: ${total_bill_amount:.2f}')
+# problem no 2
+def calculate_total_bill(items, quantities, prices, discount_percentage=0, tax_percentage=0, split_count=1):
+    """
+    Calculate the total bill amount based on ordered items, quantities, prices,
+    and apply discounts, taxes, and split the bill among friends if needed.
+
+    Parameters:
+    - items (list): List of ordered items.
+    - quantities (list): List of corresponding quantities for each item.
+    - prices (list): List of corresponding prices for each item.
+    - discount_percentage (float): Percentage of discount to apply (default is 0).
+    - tax_percentage (float): Percentage of tax to apply (default is 0).
+    - split_count (int): Number of friends to split the bill among (default is 1).
+
+    Returns:
+    - float: Total bill amount after applying discounts, taxes, and splitting.
+    """
+    # Ensure all lists are of the same length
+    if len(items) != len(quantities) or len(items) != len(prices) or len(quantities) != len(prices):
+        raise ValueError("Lists must be of the same length.")
+
+    # Calculate total bill amount before discounts and taxes
+    subtotal = sum(quantity * price for quantity, price in zip(quantities, prices))
+
+    # Apply discount
+    discount_amount = subtotal * (discount_percentage / 100)
+    discounted_total = subtotal - discount_amount
+
+    # Apply tax
+    tax_amount = discounted_total * (tax_percentage / 100)
+    total_after_tax = discounted_total + tax_amount
+
+    # Split the bill among friends
+    total_split = total_after_tax / split_count
+
+    return total_split
+
+# Example usage:
+ordered_items = ["Item1", "Item2", "Item3"]
+quantities = [2, 3, 1]
+prices = [10.99, 5.99, 7.5]
+discount_percentage = 10
+tax_percentage = 8
+split_count = 3
+
+total_bill_amount = calculate_total_bill(ordered_items, quantities, prices, discount_percentage, tax_percentage, split_count)
+print(f'Total Bill Amount per person: ${total_bill_amount:.2f}')
+# 3.Social Media Post Analyzer:
+# problem no 1
+import nltk
+from nltk.sentiment import SentimentIntensityAnalyzer
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.probability import FreqDist
+
+nltk.download('vader_lexicon')
+nltk.download('punkt')
+nltk.download('stopwords')
+
+def analyze_social_media_post(post_text):
+    """
+    Analyze sentiment and extract keywords from a social media post.
+
+    Parameters:
+    - post_text (str): Text of the social media post.
+
+    Returns:
+    - dict: Dictionary containing sentiment ('positive', 'negative', 'neutral') and keywords.
+    """
+    # Tokenize the post text
+    tokens = word_tokenize(post_text.lower())
+
+    # Remove stopwords
+    stop_words = set(stopwords.words('english'))
+    filtered_tokens = [word for word in tokens if word.isalnum() and word not in stop_words]
+
+    # Calculate sentiment using VADER sentiment analyzer
+    sia = SentimentIntensityAnalyzer()
+    sentiment_score = sia.polarity_scores(post_text)['compound']
+
+    # Classify sentiment
+    if sentiment_score >= 0.05:
+        sentiment = 'positive'
+    elif sentiment_score <= -0.05:
+        sentiment = 'negative'
+    else:
+        sentiment = 'neutral'
+
+    # Extract keywords using frequency distribution
+    freq_dist = FreqDist(filtered_tokens)
+    keywords = [word for word, freq in freq_dist.most_common(5)]
+
+    result = {
+        'sentiment': sentiment,
+        'keywords': keywords
+    }
+
+    return result
+
+# Example usage:
+social_media_post = "I love the new movie! The cinematography is amazing, and the plot is engaging."
+analysis_result = analyze_social_media_post(social_media_post)
+
+print(f"Sentiment: {analysis_result['sentiment']}")
+print(f"Keywords: {', '.join(analysis_result['keywords'])}")
+# 4.Travel cost Estimator:
+# problem no 1
+def estimate_travel_cost(destination, transportation_cost, accommodation_cost_per_night, number_of_nights, activities_cost):
+    """
+    Estimate travel cost for a chosen destination.
+
+    Parameters:
+    - destination (str): Chosen destination.
+    - transportation_cost (float): Cost of transportation to the destination.
+    - accommodation_cost_per_night (float): Cost of accommodation per night.
+    - number_of_nights (int): Number of nights of stay.
+    - activities_cost (float): Estimated cost of activities and sightseeing.
+
+    Returns:
+    - float: Total estimated travel cost.
+    """
+    total_accommodation_cost = accommodation_cost_per_night * number_of_nights
+    total_travel_cost = transportation_cost + total_accommodation_cost + activities_cost
+
+    return total_travel_cost
+
+# Example usage:
+destination = "Paris"
+transportation_cost = 500.0
+accommodation_cost_per_night = 150.0
+number_of_nights = 7
+activities_cost = 300.0
+
+estimated_cost = estimate_travel_cost(destination, transportation_cost, accommodation_cost_per_night, number_of_nights, activities_cost)
+
+print(f"Estimated travel cost to {destination}: ${estimated_cost:.2f}")
+# problem no 2
+def estimate_travel_cost(destination, transportation_cost, accommodation_cost_per_night, number_of_nights, activities_cost, travel_style="budget", duration="short"):
+    """
+    Estimate travel cost for a chosen destination based on travel style and duration.
+
+    Parameters:
+    - destination (str): Chosen destination.
+    - transportation_cost (float): Cost of transportation to the destination.
+    - accommodation_cost_per_night (float): Cost of accommodation per night.
+    - number_of_nights (int): Number of nights of stay.
+    - activities_cost (float): Estimated cost of activities and sightseeing.
+    - travel_style (str): Travel style, either "budget" or "luxury" (default is "budget").
+    - duration (str): Duration of travel, either "short" or "long" (default is "short").
+
+    Returns:
+    - float: Total estimated travel cost.
+    """
+    style_multiplier = 1.0
+    duration_multiplier = 1.0
+
+    # Adjust multipliers based on travel style
+    if travel_style == "luxury":
+        style_multiplier = 1.5  # Luxury style may incur additional costs
+    elif travel_style != "budget":
+        raise ValueError("Invalid travel style. Choose either 'budget' or 'luxury'.")
+
+    # Adjust multipliers based on travel duration
+    if duration == "long":
+        duration_multiplier = 1.2  # Longer duration may incur additional costs
+    elif duration != "short":
+        raise ValueError("Invalid duration. Choose either 'short' or 'long'.")
+
+    total_accommodation_cost = accommodation_cost_per_night * number_of_nights
+    total_travel_cost = transportation_cost + total_accommodation_cost + activities_cost
+
+    # Apply multipliers
+    total_travel_cost *= style_multiplier * duration_multiplier
+
+    return total_travel_cost
+
+# Example usage:
+destination = "Paris"
+transportation_cost = 500.0
+accommodation_cost_per_night = 150.0
+number_of_nights = 7
+activities_cost = 300.0
+travel_style = "budget"
+duration = "long"
+
+estimated_cost = estimate_travel_cost(destination, transportation_cost, accommodation_cost_per_night, number_of_nights, activities_cost, travel_style, duration)
+
+print(f"Estimated travel cost to {destination} ({travel_style} style, {duration} duration): ${estimated_cost:.2f}")
+# PROBLEMS
+# problem no 1:
+cost=0
+for i in range (5):
+    qunatity = int(input ("enter a quantity"))
+    price = int (input ("enter a price"))
+    total = quantity * price
+    cost = total
+print ("total cost is:"cost)
+if cost>100 and cost<200
+    discount = cost*0.05
+    total = cost_discount
+    print("total amount is:",total)
+elif cost>200:
+    discount = cost * 0.1
+    total=cost_discount 
+    print("total amount is,total")
+# problem no 2:
+temp = int(input("enter temp: in celcius:"))
+if temp<0:
+    print("wear warm cloths")
+if temp>30:
+    print("staying hydrated")
+# problem no 3:
+l1 = []
+for i in range (3):
+    name = input("enter a name")
+    l1.append(name)
+print (l1):
+if minahil in list 1:
+    print ("yess")
+# probem no 4:
+def factorial (num):
+    factorial=1
+    i=1
+    while i<=num:
+        factorial*=i
+        i+=1
+        print("factorial")
+        factorial(num)
+        name = (input("enter a number:"))
+# problem no 5:
+def is_palindrome(word):
+    """
+    Check if a given word is a palindrome.
+
+    Parameters:
+    - word (str): Input word to check.
+
+    Returns:
+    - bool: True if the word is a palindrome, False otherwise.
+    """
+    # Remove spaces and convert to lowercase for case-insensitive comparison
+    cleaned_word = ''.join(char.lower() for char in word if char.isalnum())
+
+    # Check if the cleaned word is equal to its reverse
+    return cleaned_word == cleaned_word[::-1]
+
+# Example usage:
+word1 = "level"
+word2 = "python"
+
+print(f'Is "{word1}" a palindrome? {is_palindrome(word1)}')
+print(f'Is "{word2}" a palindrome? {is_palindrome(word2)}')
+# problem no 6:
+def add_item(inventory, name, quantity, price):
+    """
+    Add an item to the inventory.
+
+    Parameters:
+    - inventory (list): List of dictionaries representing the inventory.
+    - name (str): Name of the item.
+    - quantity (int): Quantity of the item.
+    - price (float): Price of the item.
+    """
+    item = {"name": name, "quantity": quantity, "price": price}
+    inventory.append(item)
+    print(f"Item '{name}' added to the inventory.")
+
+def print_inventory(inventory):
+    """
+    Print the current inventory.
+
+    Parameters:
+    - inventory (list): List of dictionaries representing the inventory.
+    """
+    if not inventory:
+        print("Inventory is empty.")
+    else:
+        print("Current Inventory:")
+        for item in inventory:
+            print(f"{item['name']} - Quantity: {item['quantity']}, Price: ${item['price']}")
+
+def calculate_total_value(inventory):
+    """
+    Calculate the total value of the inventory.
+
+    Parameters:
+    - inventory (list): List of dictionaries representing the inventory.
+
+    Returns:
+    - float: Total value of the inventory.
+    """
+    total_value = sum(item['quantity'] * item['price'] for item in inventory)
+    return total_value
+
+# Example usage:
+inventory = []
+
+# Adding items to the inventory
+add_item(inventory, "Laptop", 5, 800.0)
+add_item(inventory, "Printer", 3, 200.0)
+add_item(inventory, "Desk Chair", 2, 50.0)
+
+# Printing the current inventory
+print_inventory(inventory)
+
+# Calculating and printing the total value of the inventory
+total_value = calculate_total_value(inventory)
+print(f"Total Inventory Value: ${total_value:.2f}")
+# 4.
+(1, 2, 3)
+# 5.
+20
+# 6.
+def square(x):
+    return x ** 2
+result = square(5)
+print(result)
+25
+# 7.
+num1 = 7
+num2 = 3
+result = num1 % num2
+print(result)
+1
+# problem no 7:
+def generate_squares(n):
+    """
+    Generate a list of squares for numbers 1 to n.
+
+    Parameters:
+    - n (int): The upper limit for generating squares.
+
+    Returns:
+    - list: List of squares for numbers 1 to n.
+    """
+    squares = [i**2 for i in range(1, n + 1)]
+    return squares
+
+def filter_even_squares(squares_list):
+    """
+    Filter out odd squares and return a new list with only even squares.
+
+    Parameters:
+    - squares_list (list): List of squares.
+
+    Returns:
+    - list: List of even squares.
+    """
+    even_squares = [square for square in squares_list if square % 2 == 0]
+    return even_squares
+
+# Generate a list of squares for numbers 1 to 10
+squares_list = generate_squares(10)
+
+# Filter out odd squares and get a new list with only even squares
+even_squares_list = filter_even_squares(squares_list)
+
+# Print the results
+print("List of squares:", squares_list)
+print("List of even squares:", even_squares_list)
+# problem no 8:
+# what will be the output.
+# 1.
+21
+# 2.
+0
+1
+2
+# 3.
+21
+4
+0
+1
+2
